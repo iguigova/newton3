@@ -4,6 +4,15 @@ A five-minute demo in four beats, one story: the score is a transparent fold; ed
 hold; it targets abuse, not the underserved; and behaviour acts where the legacy system
 was random.
 
+## ▶ Start here — the live demo
+
+**[`demo.html`](demo.html) — the actual engine running in your browser.** This is the one to
+open first: a single scrollable page with a faithful port of [`newton/engine.py`](../src/newton/engine.py)
+that recomputes the score and its reconciling trace live as you add events and drag them
+through time. No install, nothing to run. It also carries verbatim API request/response,
+the mandatory proposals (#1, #8), the 1,200-user impact audit, and the ML stretch — the
+whole project in one self-contained file.
+
 ## Two decks
 
 Both are self-contained HTML — open in any browser, `←`/`→` to move, `F` for fullscreen.
@@ -11,10 +20,11 @@ Screen-record either one for a video.
 
 | Deck | File | What it shows |
 |---|---|---|
+| **Live demo** ⭐ | [`demo.html`](demo.html) | The engine running in the browser — interactive event builder + live reconciling trace, plus API I/O, proposals, impact, and ML, in one page. |
 | **Pitch** | [`slides.html`](slides.html) | The problem, the reframing, proposals #1 and #8, data impact, and how it runs without AWS. |
 | **Walkthrough** | [`walkthrough.html`](walkthrough.html) | Five screens of real command output — the suite, the score, the edge cases, the 1,200-user audit, the ML stretch — each with commentary. |
 
-Every figure and code block in both decks is real program output captured from the four
+Every figure and code block in these pages is real program output captured from the four
 commands below.
 
 ## The commands

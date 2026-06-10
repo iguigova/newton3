@@ -3,9 +3,20 @@
 Newton 3 is a behaviour-driven allocation engine for shared workplace resources —
 parking, desks, EV chargers. Here is where each part of the project lives.
 
+## ▶ Start here — the live demo
+
+**[`demo.html`](demo.html) is the single best way to see Newton 3.** Open it in any browser
+(no install): a scrollable page whose centerpiece is **the actual scoring engine running in
+your browser** — a faithful port of [`newton/engine.py`](../src/newton/engine.py). Add
+events, drag them through time, and watch the score and its reconciling trace recompute
+live. The same page carries verbatim API request/response, the two mandatory proposals
+(#1 offence override, #8 explainability), the 1,200-user impact audit, and the composed ML
+stretch — the whole project in one self-contained file.
+
 | Material | Where |
 |---|---|
-| **Demo** | [`slides.html`](slides.html) (pitch deck) · [`walkthrough.html`](walkthrough.html) (real command output, narrated) · [`DEMO.md`](DEMO.md) (beats + the commands). |
+| **Live demo** ⭐ | [`demo.html`](demo.html) — the engine, running in your browser; no install. |
+| **Demo (decks)** | [`slides.html`](slides.html) (pitch deck) · [`walkthrough.html`](walkthrough.html) (real command output, narrated) · [`DEMO.md`](DEMO.md) (beats + the commands). |
 | **Documentation** | [`docs/README.md`](../docs/README.md) (source of truth) · [`src/newton/README.md`](../src/newton/README.md) (how the prototype works). |
 | **Architecture / technical overview** | [`ARCHITECTURE.md`](ARCHITECTURE.md). |
 | **Supporting materials** | [`INSIGHTS.md`](INSIGHTS.md) (insights + future improvements) · [`analysis/REPORT.md`](../analysis/REPORT.md) (data audit). |
