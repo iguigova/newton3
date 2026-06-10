@@ -1,0 +1,17 @@
+NEWTON 3 — SYNTHETIC EXAMPLE DATASET,,,
+,,,
+"All rows in this folder are generated, not real. See generate_synthetic_data.py.",,,
+,,,
+PROPOSAL LEGEND (referenced as #1-#8 in the Proposals column),,,
+Tier,#,Proposal,Mechanism (one-line)
+MANDATORY,#1,Threshold-based offence override,N offences in 30 days -> forced lowest priority
+MANDATORY,#3,Customer priority feed API,Accepts a weekly JSON priority list owned by the customer
+MANDATORY,#8,Native explainability surface,Every rejection includes a structured rationale
+HIGH-VALUE,#2,Approval-rate parity,30-day approval rate vs office median -> priority bump/dip
+HIGH-VALUE,#4,Real-time capacity transparency,Show estimated chance at request time; suggest alternates
+HIGH-VALUE,#5,Explicit waitlist mechanism,Rejected -> ranked waitlist with visible position
+STRETCH,#6,Self-declared priority days,N tokens per quarter weight a request more heavily
+STRETCH,#7,Cancellation/release credits,Releasing early earns a small priority credit
+,,,
+METHODOLOGY,,,
+"Synthetic. User, company, and office names are placeholders; verbatims are drawn from a fixed template pool; emails use the reserved example.invalid domain.",,,

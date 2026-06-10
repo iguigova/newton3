@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Newton 3 — Behaviour-Driven Parking Allocation</title>
+<style>
+  :root {
+    --bg: #0d1117; --panel: #161b22; --ink: #e6edf3; --dim: #8b949e;
+    --accent: #58a6ff; --good: #3fb950; --warn: #d29922; --bad: #f85149;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; background: var(--bg); color: var(--ink); font-family: var(--sans); }
+  .deck { width: 100vw; height: 100vh; overflow: hidden; }
+  section {
+    position: absolute; inset: 0; display: none;
+    flex-direction: column; justify-content: center;
+    padding: 6vh 9vw; gap: 2.4vh;
+  }
+  section.active { display: flex; }
+  .kicker { color: var(--accent); font-weight: 700; letter-spacing: .14em;
+            text-transform: uppercase; font-size: 1.5vh; }
+  h1 { font-size: 6.4vh; line-height: 1.05; font-weight: 800; letter-spacing: -.02em; }
+  h2 { font-size: 4.4vh; line-height: 1.08; font-weight: 800; letter-spacing: -.01em; }
+  h2 .em { color: var(--accent); }
+  p, li { font-size: 2.6vh; line-height: 1.5; color: var(--ink); }
+  p.lead { font-size: 3vh; color: var(--dim); max-width: 50ch; }
+  ul { padding-left: 3vh; display: flex; flex-direction: column; gap: 1.4vh; }
+  li::marker { color: var(--accent); }
+  .sub { color: var(--dim); }
+  .good { color: var(--good); } .warn { color: var(--warn); } .bad { color: var(--bad); }
+  code, .mono { font-family: var(--mono); }
+  .formula {
+    font-family: var(--mono); font-size: 3vh; background: var(--panel);
+    border: 1px solid #30363d; border-left: 4px solid var(--accent);
+    border-radius: 10px; padding: 3vh 3.4vh; color: var(--ink); align-self: flex-start;
+  }
+  table { border-collapse: collapse; font-size: 2.2vh; width: 100%; }
+  th, td { text-align: left; padding: 1.3vh 1.6vh; border-bottom: 1px solid #30363d; }
+  th { color: var(--dim); font-weight: 600; letter-spacing: .04em; }
+  td.r, th.r { text-align: right; font-family: var(--mono); }
+  .term {
+    font-family: var(--mono); font-size: 2.1vh; background: #010409;
+    border: 1px solid #30363d; border-radius: 10px; padding: 2.4vh 2.8vh;
+    color: var(--ink); white-space: pre; overflow: hidden; line-height: 1.45;
+  }
+  .term .pr { color: var(--good); } .term .c { color: var(--dim); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 3vh; align-items: start; }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.2vh; }
+  .card { background: var(--panel); border: 1px solid #30363d; border-radius: 12px; padding: 2.6vh; }
+  .card .big { font-size: 5.2vh; font-weight: 800; color: var(--accent); font-family: var(--mono); }
+  .card .lbl { color: var(--dim); font-size: 2vh; margin-top: .6vh; }
+  .pill { display: inline-block; background: var(--panel); border: 1px solid #30363d;
+          border-radius: 999px; padding: .7vh 1.8vh; font-size: 1.9vh; color: var(--dim); }
+  footer { position: absolute; left: 9vw; right: 9vw; bottom: 3.4vh;
+           display: flex; justify-content: space-between; align-items: center;
+           color: var(--dim); font-size: 1.7vh; }
+  .progress { position: absolute; left: 0; bottom: 0; height: 4px; background: var(--accent); transition: width .2s; }
+  .hint { position: fixed; right: 2vh; top: 2vh; color: #30363d; font-size: 1.5vh; }
+
+  /* Print / video render: every slide on its own landscape page. */
+  @media print {
+    @page { size: 1280px 720px; margin: 0; }
+    html, body, .deck { height: auto; width: auto; overflow: visible; }
+    .hint, footer .nav { display: none; }
+    section {
+      position: relative; inset: auto; display: flex !important;
+      width: 1280px; height: 720px; page-break-after: always; break-after: page;
+    }
+    .progress { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+
+  <section>
+    <div class="kicker">Newton 3 — a behaviour-driven allocation engine</div>
+    <h1>Newton 3</h1>
+    <p class="lead">A behaviour-driven parking-space allocation engine.<br>
+       The behaviour score is a <span class="good">pure fold</span> over an append-only event log.</p>
+    <div><span class="pill">score(events, config, now)</span></div>
+  </section>
+
+  <section>
+    <div class="kicker">The problem</div>
+    <h2>What Newton 3 has to <span class="em">get right</span></h2>
+    <ul>
+      <li>Every allocation <strong>explainable</strong> to the user — GDPR Article 22 expects it.</li>
+      <li>Scoring that earns trust: <strong>rewards as well as penalties</strong>, context-aware — not penalties alone.</li>
+      <li><strong>Per-tenant</strong> policy — weights configurable, not hardcoded.</li>
+      <li>One <strong>consistent</strong> model of the score — persistence and decay that don’t contradict each other.</li>
+      <li class="sub">All answering the loudest user voices: <em>“allocation feels random”</em> and <em>“nobody tells me why.”</em></li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="kicker">The idea</div>
+    <h2>Don’t build subsystems. <span class="em">Reframe.</span></h2>
+    <p class="lead">The behaviour score is not stored, mutated state. It is a pure function of an append-only event log, evaluated at a point in time.</p>
+    <div class="formula">score(events, config, now) =<br>&nbsp;&nbsp;max(floor, base + min(rewards, cap) + penalties)</div>
+    <p class="sub">Everything else is a thin shell around that one function.</p>
+  </section>
+
+  <section>
+    <div class="kicker">What the reframing delivers</div>
+    <h2>Four hard requirements become <span class="em">properties of the fold</span></h2>
+    <table>
+      <tr><th>Requirement</th><th>How the fold delivers it</th></tr>
+      <tr><td>Always-current score</td><td>Derived from the log on read — nothing to reset, never stale.</td></tr>
+      <tr><td>Fair, per-event decay</td><td>Each event decays against its own timestamp.</td></tr>
+      <tr><td>Explainability (GDPR Art. 22)</td><td>Per-event contributions <em>are</em> the explanation; they reconcile to the score.</td></tr>
+      <tr><td>Per-tenant policy</td><td><code>Config</code> is a parameter; per-tenant = a different <code>Config</code>.</td></tr>
+      <tr><td class="good">Fewer moving parts</td><td class="good">The weekly decay Lambda is gone — decay is read-time.</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <div class="kicker">Transparent by construction</div>
+    <h2>Events in → score <span class="em">and a reconciling trace</span> out</h2>
+    <div class="grid2">
+      <div class="term"><span class="c"># GET /users/bob/behavior-score  (real output)</span>
+{
+  "user_id": "bob",
+  "score": 102,
+  "tier": "Silver",
+  "reward_cap_adjustment": 0.0,
+  "config_version": "default",
+  "evaluated_at": "2026-06-09T18:11:07Z",
+  "recent_impacts": [
+    {"event": "unused_booking", "points": -2.57},
+    {"event": "carpool",        "points":  4.46}
+  ]
+}</div>
+      <div>
+        <p><strong>This is the GDPR Article 22 surface.</strong> The score is the list of events that moved it — each with its decayed value — and the arithmetic reconciles.</p>
+        <p style="margin-top:2vh">Every <em>allocation</em> outcome carries its reason too. That answers <span class="bad">“feels random”</span> and <span class="bad">“nobody tells me why.”</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">Mandatory complaint-analysis proposals</div>
+    <h2>Two proposals, <span class="em">delivered</span></h2>
+    <div class="grid2">
+      <div class="card">
+        <div class="big">#1</div>
+        <div class="lbl">Offence override</div>
+        <p style="margin-top:1.6vh"><code>Config.offence_override</code> force-ranks repeat offenders last. Threshold and window are tenant-configurable. Enforced only behind a proven detector.</p>
+      </div>
+      <div class="card">
+        <div class="big">#8</div>
+        <div class="lbl">Explainable outcomes</div>
+        <p style="margin-top:1.6vh"><code>decide()</code> attaches a rationale to every allocation: your rank, the bracket above you, or the behaviour cutoff.</p>
+      </div>
+    </div>
+    <div class="term"><span class="c"># python -m newton.cli demo  — real output, 1 space to allocate</span>
+  bob    <span class="good">ALLOCATED</span>  allocated
+  alice  rejected   within your priority bracket; a behaviour score of 102 was allocated and you have 97
+  carol  rejected   <span class="bad">restricted by repeat offences</span> — ranked below all others</div>
+  </section>
+
+  <section>
+    <div class="kicker">Business impact · synthetic 1,200-user dataset</div>
+    <h2>Targets <span class="bad">abuse</span>, protects the <span class="good">underserved</span></h2>
+    <table>
+      <tr><th>Underserved tier</th><th class="r">n</th><th class="r">mean (defaults)</th><th class="r">mean (long-memory)</th><th>reading</th></tr>
+      <tr><td>A · high-demand</td><td class="r">352</td><td class="r">99.9</td><td class="r good">96.8</td><td class="sub">protected</td></tr>
+      <tr><td>B · high-demand</td><td class="r">163</td><td class="r">99.8</td><td class="r good">94.3</td><td class="sub">protected</td></tr>
+      <tr><td>M · multi-misser</td><td class="r">75</td><td class="r">99.5</td><td class="r bad">90.0</td><td class="sub">16% Bronze-or-below, min 39</td></tr>
+      <tr><td>X · excess nudges</td><td class="r">27</td><td class="r">99.3</td><td class="r bad">93.1</td><td class="sub">penalised</td></tr>
+    </table>
+    <p class="sub">Same engine, different <code>Config</code>. Defaults are forgiving by design — short windows hide a 3-month history; that is the argument for tenant-configurable windows. <strong>4 / 1,200</strong> users trip the offence override at 2 / 30 days.</p>
+  </section>
+
+  <section>
+    <div class="kicker">Where the layer acts</div>
+    <h2>Behaviour is <span class="em">layer 3</span> — exactly where legacy was random</h2>
+    <ul>
+      <li>The sort is <code>(restricted, group_priority, user_priority, −score)</code>. Behaviour only reorders users <em>inside</em> an equal-priority bracket.</li>
+      <li><strong>1,030 of 1,200</strong> users sit in such a bracket — where the legacy system fell back to a <span class="bad">random</span> tie-break.</li>
+      <li class="good">Randomness → a deterministic, explainable order. A shadow comparator proves whom it reorders before any cut-over.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="kicker">Scalability &amp; maintainability</div>
+    <h2>Runs <span class="em">without AWS</span> — because the core is pure</h2>
+    <table>
+      <tr><th>AWS would provide</th><th>Prototype runs without it</th></tr>
+      <tr><td>DynamoDB tables</td><td><code>InMemoryStore</code> behind the <code>EventStore</code> Protocol</td></tr>
+      <tr><td>Lambda compute</td><td>Plain functions — <code>evaluate</code>, <code>rank</code></td></tr>
+      <tr><td>EventBridge bus</td><td>The engine doesn’t care how an event arrived</td></tr>
+      <tr><td class="good">EventBridge Scheduler (decay job)</td><td class="good">Nothing — decay is computed from injected <code>now</code></td></tr>
+    </table>
+    <p class="sub">AWS is the deployment target, never a dependency. Going to AWS is wrapping the same <code>evaluate</code> in a 3-line handler and writing one <code>DynamoEventStore</code>. The core never changes — which is why tests need no mocks.</p>
+  </section>
+
+  <section>
+    <div class="kicker">Technical quality</div>
+    <h2>What we built, <span class="em">as strengths</span></h2>
+    <div class="cards">
+      <div class="card"><div class="big">63</div><div class="lbl">tests pass · incl. data invariants</div></div>
+      <div class="card"><div class="big">0</div><div class="lbl">mocks · the engine is pure</div></div>
+      <div class="card"><div class="big">0</div><div class="lbl">dependencies · stdlib only, curl-able API</div></div>
+    </div>
+    <ul>
+      <li>Persistence, per-event decay, explainability and per-tenant config are <strong>properties of one pure function</strong> — not subsystems to build or keep in sync.</li>
+      <li>Idempotent under at-least-once delivery (<code>event_id</code> dedup) — no double-fire.</li>
+      <li><code>config_version</code> + <code>evaluated_at</code> on every response → a decision reproduces exactly; structured audit log.</li>
+      <li>Decay windows bound the fold; the log compacts. Live read API on the standard library. <code>ruff</code>-clean.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="kicker">Innovation · the AI stretch</div>
+    <h2>ML where it earns its place — <span class="em">never where it breaks trust</span></h2>
+    <div class="grid2">
+      <div>
+        <p><strong class="good">Compose, don't couple.</strong> ML feeds <em>capacity</em>, not <em>ranking</em>. The score stays a pure, explainable fold; a black box never decides who gets a space.</p>
+        <ul style="margin-top:2vh">
+          <li><strong>Predictive no-show → overbooking</strong> — reclaim the seats no-shows waste. Shipped in <code>analysis/predict.py</code> (calibrated, 64% better than a mean baseline).</li>
+          <li><strong>Anomaly detection</strong> on the event stream — catch ANPR misreads <em>before</em> they become penalties (the false-positive offence-detection risk).</li>
+          <li><strong>LLM explanations</strong> built <em>from</em> the impact trace — grounded in the real numbers, so they can't hallucinate the score.</li>
+        </ul>
+      </div>
+      <div>
+        <p class="bad"><strong>Where it would break trust:</strong></p>
+        <ul style="margin-top:2vh">
+          <li class="sub">Don't <em>learn the ranking</em> — a black-box sort brings back the exact "feels random / nobody tells me why" the project kills (and GDPR Art. 22).</li>
+          <li class="sub">The <strong>Z-tier trap</strong> — training on complaints teaches "complains-without-using" as a target. Filter it out.</li>
+          <li class="sub">Needs a <strong>real event log</strong> first — the store now captures it; today's baseline trains on reconstructed aggregates.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="sub"><strong>Worked example —</strong> an office has 80 spaces and ~8% of bookings no-show. Admit exactly 80 and ~6 sit empty every day. The model predicts ~92% attendance, so it admits <strong>87</strong> (80&nbsp;÷&nbsp;0.92): ~80 actually park, <span class="good">~7 more people served</span> each cycle — and the behaviour ranking still decides <em>who</em>, with the same explanation. The model only chose the number <em>87</em>, never the people.</p>
+  </section>
+
+  <section>
+    <div class="kicker">See it run · four commands</div>
+    <h2>Reproducible, end to end</h2>
+    <div class="term"><span class="pr">$</span> python -m pytest -q              <span class="c"># 63 pass — the engine under test</span>
+<span class="pr">$</span> python -m newton.cli demo          <span class="c"># transparent score + explained allocation</span>
+<span class="pr">$</span> python -m newton.app &amp;            <span class="c"># live read API → curl /users/bob/behavior-score</span>
+<span class="pr">$</span> python -m analysis.impact          <span class="c"># data audit → analysis/REPORT.md</span></div>
+    <p class="lead">Clone it and run these — the tests, the live API, and the data audit all reproduce. <span class="good">No setup, no dependencies, no mocks.</span></p>
+    <p class="sub">The dataset is synthetic (~1200 example users). No PII is printed.</p>
+  </section>
+
+</div>
+
+<div class="hint">← → / space · F fullscreen</div>
+<div class="progress" id="bar"></div>
+
+<script>
+  const slides = [...document.querySelectorAll('section')];
+  let i = 0;
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, k) => s.classList.toggle('active', k === i));
+    const f = slides[i].querySelector('footer');
+    document.getElementById('bar').style.width = ((i + 1) / slides.length * 100) + '%';
+  }
+  // footer per slide
+  slides.forEach((s, k) => {
+    const f = document.createElement('footer');
+    f.innerHTML = '<span>Newton 3</span><span>' + (k + 1) + ' / ' + slides.length + '</span>';
+    s.appendChild(f);
+  });
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight', ' ', 'PageDown'].includes(e.key)) show(i + 1);
+    else if (['ArrowLeft', 'PageUp'].includes(e.key)) show(i - 1);
+    else if (e.key === 'Home') show(0);
+    else if (e.key === 'End') show(slides.length - 1);
+    else if (e.key.toLowerCase() === 'f') document.documentElement.requestFullscreen?.();
+  });
+  show(0);
+</script>
+</body>
+</html>

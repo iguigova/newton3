@@ -1,0 +1,41 @@
+Date,Company,Office,User ID,Name,Email,Role,Verbatim,Proposals,Notes
+2026-04-03,Company 013,Office 086,user-00857,User 00857,user00857@example.invalid,User,No way to see my position when a request is rejected.,#1,synthetic sample
+2026-05-18,Company 007,Office 071,user-00837,User 00837,user00837@example.invalid,User,Allocation feels random — I never get the days I ask for and no reason is given.,#1,synthetic sample
+2026-03-18,Company 039,Office 086,user-00487,User 00487,user00487@example.invalid,Admin,Was marked as a no-show for a booking I released the night before.,#2,synthetic sample
+2026-05-09,Company 042,Office 069,user-01154,User 01154,user01154@example.invalid,Admin,Would love to see how full a day is before I request it.,"#7, #2",synthetic sample
+2026-01-17,Company 160,Office 005,user-00671,User 00671,user00671@example.invalid,User,Was marked as a no-show for a booking I released the night before.,#5,synthetic sample
+2026-06-06,Company 042,Office 058,user-00720,User 00720,user00720@example.invalid,User,Was marked as a no-show for a booking I released the night before.,"#4, #1",synthetic sample
+2026-01-01,Company 004,Office 029,user-00317,User 00317,user00317@example.invalid,User,Would love to see how full a day is before I request it.,"#2, #4",synthetic sample
+2026-03-24,Company 080,Office 029,user-00950,User 00950,user00950@example.invalid,Admin,Allocation feels random — I never get the days I ask for and no reason is given.,#4,synthetic sample
+2026-03-26,Company 043,Office 011,user-00647,User 00647,user00647@example.invalid,Admin,A waitlist with a visible position would be far better than a flat rejection.,"#5, #2",synthetic sample
+2026-04-19,Company 107,Office 028,user-00710,User 00710,user00710@example.invalid,User,Would love to see how full a day is before I request it.,"#4, #8",synthetic sample
+2026-03-13,Company 067,Office 025,user-00862,User 00862,user00862@example.invalid,User,I keep losing Tuesdays to the same people and there's no visibility into why.,#5,synthetic sample
+2026-03-11,Company 157,Office 108,user-00646,User 00646,user00646@example.invalid,Admin,The priority rules are opaque; I can't explain them to my team.,"#2, #4",synthetic sample
+2026-04-15,Company 026,Office 025,user-00510,User 00510,user00510@example.invalid,User,I keep losing Tuesdays to the same people and there's no visibility into why.,"#5, #3",synthetic sample
+2026-01-26,Company 128,Office 056,user-00270,User 00270,user00270@example.invalid,User,The priority rules are opaque; I can't explain them to my team.,#2,synthetic sample
+2026-02-04,Company 007,Office 118,user-00138,User 00138,user00138@example.invalid,User,Carpooling never seems to help my chances even though I do it weekly.,#7,synthetic sample
+2026-06-14,Company 161,Office 076,user-00922,User 00922,user00922@example.invalid,User,Was marked as a no-show for a booking I released the night before.,#8,synthetic sample
+2026-03-22,Company 082,Office 033,user-00684,User 00684,user00684@example.invalid,User,The priority rules are opaque; I can't explain them to my team.,"#4, #8",synthetic sample
+2026-06-09,Company 105,Office 046,user-00112,User 00112,user00112@example.invalid,Admin,I keep losing Tuesdays to the same people and there's no visibility into why.,#8,synthetic sample
+2026-04-02,Company 034,Office 058,user-01027,User 01027,user01027@example.invalid,User,No way to see my position when a request is rejected.,"#6, #5",synthetic sample
+2026-04-15,Company 118,Office 018,user-00858,User 00858,user00858@example.invalid,User,I keep losing Tuesdays to the same people and there's no visibility into why.,"#8, #2",synthetic sample
+2026-01-03,Company 091,Office 069,user-00172,User 00172,user00172@example.invalid,Admin,Allocation feels random — I never get the days I ask for and no reason is given.,"#5, #4",synthetic sample
+2026-05-24,Company 057,Office 024,user-01004,User 01004,user01004@example.invalid,User,Allocation feels random — I never get the days I ask for and no reason is given.,#6,synthetic sample
+2026-03-03,Company 002,Office 058,user-00410,User 00410,user00410@example.invalid,User,Allocation feels random — I never get the days I ask for and no reason is given.,#8,synthetic sample
+2026-01-25,Company 164,Office 043,user-00871,User 00871,user00871@example.invalid,Admin,No way to see my position when a request is rejected.,"#1, #3",synthetic sample
+2026-06-25,Company 169,Office 042,user-00452,User 00452,user00452@example.invalid,User,No way to see my position when a request is rejected.,"#4, #2",synthetic sample
+2026-03-27,Company 112,Office 108,user-00918,User 00918,user00918@example.invalid,User,Allocation feels random — I never get the days I ask for and no reason is given.,#7,synthetic sample
+2026-06-22,Company 009,Office 026,user-01071,User 01071,user01071@example.invalid,User,Carpooling never seems to help my chances even though I do it weekly.,"#6, #1",synthetic sample
+2026-02-02,Company 152,Office 010,user-00836,User 00836,user00836@example.invalid,User,Carpooling never seems to help my chances even though I do it weekly.,#8,synthetic sample
+2026-06-02,Company 049,Office 076,user-00102,User 00102,user00102@example.invalid,User,Would love to see how full a day is before I request it.,"#6, #1",synthetic sample
+2026-02-24,Company 015,Office 016,user-00436,User 00436,user00436@example.invalid,User,I keep losing Tuesdays to the same people and there's no visibility into why.,"#1, #6",synthetic sample
+2026-01-19,Company 084,Office 004,user-00782,User 00782,user00782@example.invalid,Admin,Carpooling never seems to help my chances even though I do it weekly.,#5,synthetic sample
+2026-03-25,Company 147,Office 063,user-00084,User 00084,user00084@example.invalid,Admin,No way to see my position when a request is rejected.,#2,synthetic sample
+2026-06-14,Company 085,Office 022,user-00639,User 00639,user00639@example.invalid,Admin,Allocation feels random — I never get the days I ask for and no reason is given.,"#8, #6",synthetic sample
+2026-04-03,Company 045,Office 021,user-00595,User 00595,user00595@example.invalid,Admin,The priority rules are opaque; I can't explain them to my team.,#1,synthetic sample
+2026-01-01,Company 098,Office 049,user-01021,User 01021,user01021@example.invalid,User,I keep losing Tuesdays to the same people and there's no visibility into why.,#2,synthetic sample
+2026-02-28,Company 099,Office 117,user-00703,User 00703,user00703@example.invalid,User,I keep losing Tuesdays to the same people and there's no visibility into why.,#8,synthetic sample
+2026-04-03,Company 036,Office 090,user-00193,User 00193,user00193@example.invalid,User,I keep losing Tuesdays to the same people and there's no visibility into why.,#5,synthetic sample
+2026-06-12,Company 121,Office 033,user-00254,User 00254,user00254@example.invalid,User,Was marked as a no-show for a booking I released the night before.,"#6, #4",synthetic sample
+2026-02-20,Company 136,Office 098,user-00184,User 00184,user00184@example.invalid,User,The priority rules are opaque; I can't explain them to my team.,#4,synthetic sample
+2026-05-18,Company 128,Office 039,user-01121,User 01121,user01121@example.invalid,User,Was marked as a no-show for a booking I released the night before.,#6,synthetic sample
