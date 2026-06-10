@@ -12,10 +12,10 @@ how you rank in the next allocation.
 This repository holds the design, a runnable Python prototype, a synthetic example dataset,
 and an analysis that audits the behaviour layer against that data.
 
-> ▶ **See it run — no install.** [`deliverables/demo.html`](deliverables/demo.html) is a
-> single self-contained page with **the actual scoring engine running in your browser**: add
+> ▶ **[See it run live — no install](https://iguigova.github.io/newton3/deliverables/demo.html).**
+> A single self-contained page with **the actual scoring engine running in your browser**: add
 > events, drag them through time, and watch the score and its reconciling trace recompute
-> live. (Open the file in any browser.) It's the fastest way to understand Newton 3.
+> live. The fastest way to understand Newton 3. (Source: [`deliverables/demo.html`](deliverables/demo.html).)
 
 ---
 
