@@ -6,6 +6,13 @@ open questions that shape the implementation.
 
 The source files referenced here sit in [`artifacts/`](./artifacts).
 
+> **Re-evaluation (2026-06):** after building the prototype, the design was re-read
+> against the goal it serves. The behaviour score is demoted to an optional layer; the
+> product is transparency, fair rationing, and capacity recovery. See
+> [`REEVALUATION.md`](./REEVALUATION.md) for the critique and the decision taken on every
+> open question, and [`SPEC.v2.md`](./SPEC.v2.md) for the redesigned spec that supersedes
+> [`artifacts/SPEC.md`](./artifacts/SPEC.md).
+
 ---
 
 ## Source artifacts

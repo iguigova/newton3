@@ -99,6 +99,8 @@ tests/                     — unit + scenario tests
 docs/
   README.md                — single source of truth: synthesis, design decisions,
                              critique, and open questions
+  REEVALUATION.md          — post-build critique + decisions on every open question
+  SPEC.v2.md               — redesigned spec (supersedes artifacts/SPEC.md)
   artifacts/               — the design spec + synthetic example dataset
     SPEC.md                    consolidated design specification
     CLAUDE.md                  AI-pair-programming brief
