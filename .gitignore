@@ -216,3 +216,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# The session history: journal.sh writes it, and it stays on this machine
+.claude/session_history.md
