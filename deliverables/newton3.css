@@ -1,6 +1,6 @@
 /* The look of newton3's pages is brand.css, the shared stylesheet of every
-   page under iguigova.github.io: white, black and one orange, both themes,
-   Arial. It is imported into a layer, so each page's own rules win over it.
+   page under iguigova.github.io, which carries the look of urgh.weebly.com.
+   It is imported into a layer, so each page's own rules win over it.
    This file maps the pages' colour names onto brand's and adds what a demo
    needs beyond it: result colours that pass WCAG AA in both themes, and the
    allocation tiers. Each page links it before its own <style>. */
