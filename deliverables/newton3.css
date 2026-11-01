@@ -9,12 +9,12 @@
 :root {
   --dim: var(--muted); --line: var(--hair); --accent: var(--link);
   --panel2: #fafafa; --term: var(--panel); --field: #767676;
-  --good: #137333; --warn: #8f5a00; --bad: #b91c1c;
+  --warn: #8f5a00; --bad: #b91c1c;
   --plat: #475569; --gold: #7a5d00; --silver: #5b6670; --bronze: #9a4f12;
 }
 @media (prefers-color-scheme: dark) { :root {
   --panel2: #1f1f1f; --field: #8a8a8a;
-  --good: #3fb950; --warn: #d29922; --bad: #f85149;
+  --warn: #d29922; --bad: #f85149;
   --plat: #b6c2cf; --gold: #d4af37; --silver: #9aa5b1; --bronze: #cd7f32;
 } }
 
