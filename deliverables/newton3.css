@@ -1,10 +1,10 @@
-/* The look of newton3's pages is brand.css, the shared stylesheet of every
-   page under iguigova.github.io, which carries the look of urgh.weebly.com.
-   It is imported into a layer, so each page's own rules win over it.
+/* The base style is brand.css at the root of iguigova.github.io: on the live
+   site that is the hub's file, and on the machine ~/src/oceanhue/brand.css, a
+   symlink to it. It is imported into a layer, so each page's own rules win.
    This file maps the pages' colour names onto brand's and adds what a demo
    needs beyond it: result colours that pass WCAG AA in both themes, and the
    allocation tiers. Each page links it before its own <style>. */
-@import url("https://iguigova.github.io/brand.css") layer(brand);
+@import url("../../brand.css") layer(brand);
 
 :root {
   --dim: var(--muted); --line: var(--hair); --accent: var(--link);
