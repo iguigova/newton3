@@ -3,20 +3,19 @@
    symlink to it. It is imported into a layer, so each page's own rules win.
    This file maps the pages' colour names onto brand's and adds what a demo
    needs beyond it: result colours that pass WCAG AA in both themes, and the
-   allocation tiers. Each page links it before its own <style>. */
+   allocation tiers. A colour that differs by theme is light-dark(light, dark),
+   which follows the theme brand.css sets. Each page links it before its own
+   <style>. */
 @import url("../../brand.css") layer(brand);
 
 :root {
   --dim: var(--muted); --line: var(--hair); --accent: var(--link);
-  --panel2: #fafafa; --term: var(--panel); --field: #767676;
-  --warn: #8f5a00; --bad: #b91c1c;
-  --plat: #475569; --gold: #7a5d00; --silver: #5b6670; --bronze: #9a4f12;
+  --term: var(--panel);
+  --panel2: light-dark(#fafafa, #1f1f1f); --field: light-dark(#767676, #8a8a8a);
+  --warn: light-dark(#8f5a00, #d29922); --bad: light-dark(#b91c1c, #f85149);
+  --plat: light-dark(#475569, #b6c2cf); --gold: light-dark(#7a5d00, #d4af37);
+  --silver: light-dark(#5b6670, #9aa5b1); --bronze: light-dark(#9a4f12, #cd7f32);
 }
-@media (prefers-color-scheme: dark) { :root {
-  --panel2: #1f1f1f; --field: #8a8a8a;
-  --warn: #d29922; --bad: #f85149;
-  --plat: #b6c2cf; --gold: #d4af37; --silver: #9aa5b1; --bronze: #cd7f32;
-} }
 
 /* brand.css lays a section out as a label column and a body; these pages lay
    out their own, so its grid and its label style stay out. */
