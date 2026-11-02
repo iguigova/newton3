@@ -23,3 +23,9 @@ body { font-size: 16px; }
 section { display: block; margin: 0; }
 section > h2 { color: inherit; border: 0; padding: 0; letter-spacing: inherit; }
 .tag { margin: 0; }
+
+/* Each page's own reset zeroes every padding, which beats brand.css's layer,
+   so the theme switch gets its padding back here, fixed in the corner and
+   scaled with the pages' vh type. The key hint sits in the other corner. */
+.theme-switch { position: fixed; top: 1.4vh; right: 2vh; min-height: 24px;
+  padding: max(5px, .6vh) max(9px, 1.2vh); font-size: max(13px, 1.5vh); }
