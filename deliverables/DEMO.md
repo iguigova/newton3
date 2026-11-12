@@ -4,15 +4,12 @@ A five-minute demo in four beats, one story: the score is a transparent fold; ed
 hold; it targets abuse, not the underserved; and behaviour acts where the legacy system
 was random.
 
-## ▶ Start here — the live demo
+## ▶ Start here — the page
 
-**▶ [Open the live demo](https://iguigova.github.io/newton3/deliverables/demo.html) — the
-actual engine running in your browser.** This is the one to open first: a single scrollable
-page with a faithful port of [`newton/engine.py`](../src/newton/engine.py) that recomputes
-the score and its reconciling trace live as you add events and drag them through time. No
-install, nothing to run. It also carries verbatim API request/response, the mandatory
-proposals (#1, #8), the 1,200-user impact audit, and the ML stretch — the whole project in
-one self-contained file. (Source: [`demo.html`](demo.html).)
+**▶ [Open the page](https://iguigova.github.io/newton3/)** — `engine.py` itself, running in your browser on Pyodide.
+Add events, slide them back in time, and watch the score and its trace recompute. The same
+page runs the CLI demo, the data audit, the no-show model and the tests on the repo's own
+files. (Source: [`index.html`](../index.html) and [`demo/`](../demo).)
 
 ## Two decks
 
@@ -21,7 +18,7 @@ Screen-record either one for a video.
 
 | Deck | Live link | What it shows |
 |---|---|---|
-| **Live demo** ⭐ | [demo.html](https://iguigova.github.io/newton3/deliverables/demo.html) | The engine running in the browser — interactive event builder + live reconciling trace, plus API I/O, proposals, impact, and ML, in one page. |
+| **The page** ⭐ | [iguigova.github.io/newton3](https://iguigova.github.io/newton3/) | The engine running in the browser, with its trace, and the repo's commands run live. |
 | **Pitch** | [slides.html](https://iguigova.github.io/newton3/deliverables/slides.html) | The problem, the reframing, proposals #1 and #8, data impact, and how it runs without AWS. |
 | **Walkthrough** | [walkthrough.html](https://iguigova.github.io/newton3/deliverables/walkthrough.html) | Five screens of real command output — the suite, the score, the edge cases, the 1,200-user audit, the ML stretch — each with commentary. |
 

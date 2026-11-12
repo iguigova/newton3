@@ -1,0 +1,58 @@
+/* The page's own rules, over brand.css: the steps, the engine with its
+   events and trace, and the commands with their output. A colour that
+   differs by theme is light-dark(light, dark), which follows the theme
+   brand.css sets. */
+
+:root {
+  --line: light-dark(#767676, #8a8a8a);
+  --bad: light-dark(#b3261e, #f08a80);
+}
+
+.flow { padding-left: 1.4em; }
+.flow li { margin: 4px 0; }
+
+.status { color: var(--muted); }
+
+button, select, input { font: inherit; color: var(--ink); background: var(--bg); }
+button, select, input { min-height: 44px; padding: 0 10px; border: 1px solid var(--line); border-radius: 3px; }
+button { color: var(--link); cursor: pointer; }
+button:hover { border-color: var(--link); }
+button:disabled { color: var(--muted); cursor: progress; }
+button[aria-pressed="true"] { border-color: var(--link); font-weight: 700; }
+
+.presets, .add, .commands { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 10px; }
+
+.events { list-style: none; padding: 0; margin: 0 0 10px; max-width: none; }
+.events li { display: grid; grid-template-columns: minmax(0, 11em) minmax(0, 1fr) 4.5em 44px; gap: 8px; align-items: center; margin: 0 0 6px; }
+.events input[type="range"] { padding: 0; border: 0; accent-color: var(--link); }
+.events output { text-align: right; font-family: var(--mono); font-size: 13px; }
+.events .remove { padding: 0; }
+.events .empty { display: block; color: var(--muted); }
+
+.policy { margin: 0 0 12px; }
+.policy summary { cursor: pointer; color: var(--link); min-height: 24px; }
+.fields { display: flex; flex-wrap: wrap; gap: 10px 14px; margin-top: 8px; }
+.fields label { display: flex; flex-direction: column; gap: 2px; }
+.fields input { width: 8em; }
+
+.result { border: 1px solid var(--hair); border-radius: 3px; padding: 10px 12px; }
+.score { margin: 0; font-family: var(--head); }
+#score { font-size: 40px; color: var(--title); }
+.tier { color: var(--muted); }
+.flag { color: var(--bad); font-weight: 700; margin: 0 0 6px; }
+.flag:empty { display: none; }
+.trace { border-collapse: collapse; font-size: 14px; margin: 6px 0; }
+.trace caption { text-align: left; color: var(--muted); }
+.trace th, .trace td { padding: 4px 14px 4px 0; text-align: left; border-bottom: 1px solid var(--hair); }
+.trace th { color: var(--muted); font-weight: 400; }
+.trace .r { text-align: right; font-family: var(--mono); }
+.trace .gone td { color: var(--muted); }
+.sum { font-family: var(--mono); font-size: 13px; margin: 6px 0 0; }
+
+.out { min-height: 6em; max-height: 32em; overflow: auto; white-space: pre; }
+.out:empty { display: none; }
+
+@media (max-width: 640px) {
+  .events li { grid-template-columns: minmax(0, 1fr) 4.5em 44px; }
+  .events li input[type="range"] { grid-column: 1 / -1; grid-row: 2; }
+}

@@ -3,20 +3,16 @@
 Newton 3 is a behaviour-driven allocation engine for shared workplace resources —
 parking, desks, EV chargers. Here is where each part of the project lives.
 
-## ▶ Start here — the live demo
+## ▶ Start here — the page
 
-**▶ [Open the live demo](https://iguigova.github.io/newton3/deliverables/demo.html) — the
-single best way to see Newton 3** (no install). A scrollable page whose centerpiece is **the
-actual scoring engine running in your browser** — a faithful port of
-[`newton/engine.py`](../src/newton/engine.py). Add events, drag them through time, and watch
-the score and its reconciling trace recompute live. The same page carries verbatim API
-request/response, the two mandatory proposals (#1 offence override, #8 explainability), the
-1,200-user impact audit, and the composed ML stretch — the whole project in one
-self-contained file. (Source: [`demo.html`](demo.html).)
+**▶ [Open the page](https://iguigova.github.io/newton3/)** — `engine.py` itself, running in your browser on Pyodide.
+Add events, slide them back in time, and watch the score and its trace recompute. The same
+page runs the CLI demo, the data audit, the no-show model and the tests on the repo's own
+files. (Source: [`index.html`](../index.html) and [`demo/`](../demo).)
 
 | Material | Where |
 |---|---|
-| **Live demo** ⭐ | [iguigova.github.io/newton3/…/demo.html](https://iguigova.github.io/newton3/deliverables/demo.html) — the engine, running in your browser; no install. |
+| **The page** ⭐ | [iguigova.github.io/newton3](https://iguigova.github.io/newton3/) — the engine and the commands, running in your browser; no install. |
 | **Demo (decks)** | [slides.html](https://iguigova.github.io/newton3/deliverables/slides.html) (pitch deck) · [walkthrough.html](https://iguigova.github.io/newton3/deliverables/walkthrough.html) (real command output, narrated) · [`DEMO.md`](DEMO.md) (beats + the commands). |
 | **Documentation** | [`docs/README.md`](../docs/README.md) (source of truth) · [`src/newton/README.md`](../src/newton/README.md) (how the prototype works). |
 | **Architecture / technical overview** | [`ARCHITECTURE.md`](ARCHITECTURE.md). |

@@ -1,13 +1,165 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Newton 3 — Live Demo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="refresh" content="0; url=deliverables/demo.html">
-  <link rel="canonical" href="deliverables/demo.html">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>newton3: a score anyone can check</title>
+<meta name="description" content="A behaviour score for allocating shared spaces, worked out from the event log every time it is read, with every point explained. The real Python engine runs in your browser.">
+<link rel="stylesheet" href="../brand.css">
+<link rel="stylesheet" href="demo/index.css">
+<script src="../brand.js"></script>
 </head>
 <body>
-  <p>Redirecting to the <a href="deliverables/demo.html">Newton 3 live demo</a>…</p>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>newton3</h1>
+      <p class="tag">A behaviour score anyone can check, worked out from the event log every time it is read.</p>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <h2>What it is</h2>
+      <div>
+        <p>Newton decides who gets a shared space, such as a parking spot, a
+          desk or a charger, when more people want one than there are.
+          Admins set priority. Newton 3 adds a behaviour score, which orders
+          people only among those with equal priority, where a random draw
+          would otherwise decide.</p>
+        <p>The score is one pure function of a person's events, the tenant's
+          policy and the time:</p>
+        <pre><code>score(events, config, now) = max(floor, base + min(rewards, cap) + penalties)</code></pre>
+        <ul>
+          <li><strong>Always current.</strong> No score is stored, so none goes
+            stale, and no job runs to decay it.</li>
+          <li><strong>Each event fades on its own clock.</strong> Its points
+            shrink across its window, then it drops out of the sum.</li>
+          <li><strong>The explanation is the arithmetic.</strong> Each event's
+            points add up to the score, and the API returns them with it.</li>
+          <li><strong>One engine, any policy.</strong> A tenant's weights,
+            windows, cap and floor are a <code>Config</code>, passed in.</li>
+          <li><strong>Every rejection says why</strong>: the rank, the bracket
+            above, or the score that got the space.</li>
+          <li><strong>Python's standard library only.</strong> The engine is
+            pure, so the tests use no mocks.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>How it works</h2>
+      <div>
+        <ol class="flow">
+          <li>Each thing a person does is appended to their log: a no-show, a
+            free space taken, an offence, a carpool.</li>
+          <li>When the score is read, events past their window are dropped
+            and the rest are faded by their age.</li>
+          <li>Rewards are capped, penalties added, the sum rounded half up
+            and kept above the floor.</li>
+          <li>Allocation ranks by admin priority, then by score within a
+            bracket. Repeat offenders can be ranked last, by a count,
+            whatever their score.</li>
+          <li>Each person gets the decision and the reason for it.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section>
+      <h2>Try it</h2>
+      <div>
+        <p>This is <a href="https://github.com/iguigova/newton3/blob/main/src/newton/engine.py"><code>engine.py</code></a>
+          itself, running in your browser on
+          <a href="https://pyodide.org">Pyodide</a>. Start from one of the
+          API's demo users, add events, and slide them back in time.</p>
+        <p id="status" class="status" role="status">Loading Python and the engine…</p>
+        <div id="engine" class="engine" hidden>
+          <div class="presets" role="group" aria-label="Start from" id="presets"></div>
+          <div class="add" role="group" aria-label="Add an event" id="add"></div>
+          <ul id="events" class="events" aria-label="Events"></ul>
+          <details class="policy">
+            <summary>Tenant policy</summary>
+            <div class="fields" id="policy"></div>
+          </details>
+          <div class="result" aria-live="polite">
+            <p class="score"><span id="score"></span> <span id="tier" class="tier"></span></p>
+            <p id="flag" class="flag"></p>
+            <table class="trace">
+              <caption>The score, event by event</caption>
+              <thead><tr><th scope="col">Event</th><th scope="col" class="r">Days ago</th><th scope="col" class="r">Points</th></tr></thead>
+              <tbody id="trace"></tbody>
+            </table>
+            <p id="sum" class="sum"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Run it here</h2>
+      <div>
+        <p>The repo's own commands, on its own files, in your browser. The
+          data is the synthetic set in
+          <a href="https://github.com/iguigova/newton3/tree/main/docs/artifacts"><code>docs/artifacts</code></a>.</p>
+        <div class="commands" role="group" aria-label="Commands" id="commands">
+          <button type="button" data-run='["newton.cli", "demo"]' disabled>newton.cli demo</button>
+          <button type="button" data-run='["analysis.impact"]' disabled>analysis.impact</button>
+          <button type="button" data-run='["analysis.predict"]' disabled>analysis.predict</button>
+          <button type="button" data-run='["pytest", "-q"]' disabled>pytest -q</button>
+        </div>
+        <pre class="out" id="out" tabindex="0" role="region" aria-label="Command output"></pre>
+      </div>
+    </section>
+
+    <section>
+      <h2>Use it</h2>
+      <div>
+        <p>It needs Python 3.10 or later:</p>
+        <pre><code>git clone https://github.com/iguigova/newton3 &amp;&amp; cd newton3
+pip install -e . pytest
+pytest                          # the tests
+python -m newton.cli demo       # a ranking, its decisions and one API response
+python -m newton.app            # the read API on 127.0.0.1:8000
+curl -s localhost:8000/users/bob/behavior-score</code></pre>
+        <p>The <a href="https://github.com/iguigova/newton3#readme">README</a>
+          and <a href="https://github.com/iguigova/newton3/blob/main/docs/README.md"><code>docs/README.md</code></a>
+          hold the design, its critique and the open questions.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Edges</h2>
+      <div>
+        <ul>
+          <li>The data is synthetic, made by
+            <code>docs/artifacts/generate_synthetic_data.py</code>. No real
+            people are in it.</li>
+          <li>The store is in memory. The AWS design, on Lambda, DynamoDB and
+            EventBridge, is in the docs and not built.</li>
+          <li>Under the default policy no one reaches Platinum: the base plus
+            the reward cap stays below its floor.</li>
+          <li>With the default windows the score barely moves over three
+            months of history. <code>analysis.impact</code> shows it, and
+            shows a longer memory telling abuse from need.</li>
+          <li>The default policy charges a point for taking a free space.
+            <a href="https://github.com/iguigova/newton3/blob/main/docs/REEVALUATION.md"><code>REEVALUATION.md</code></a>
+            argues for dropping it.</li>
+          <li>The offence override is only as fair as the offence detection
+            behind it.</li>
+          <li>The no-show model in <code>analysis.predict</code> sets how many
+            requests to admit, never who.</li>
+          <li>The page downloads Python, some megabytes, the first time it
+            opens.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="line"><a href="/">Ilka Guigova</a> · <a href="https://github.com/iguigova/newton3">github.com/iguigova/newton3</a></div>
+    <div class="band" aria-hidden="true"></div>
+  </footer>
+</div>
+<script type="module" src="demo/index.js"></script>
 </body>
 </html>

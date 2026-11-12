@@ -12,10 +12,11 @@ how you rank in the next allocation.
 This repository holds the design, a runnable Python prototype, a synthetic example dataset,
 and an analysis that audits the behaviour layer against that data.
 
-> ▶ **[See it run live — no install](https://iguigova.github.io/newton3/deliverables/demo.html).**
-> A single self-contained page with **the actual scoring engine running in your browser**: add
-> events, drag them through time, and watch the score and its reconciling trace recompute
-> live. The fastest way to understand Newton 3. (Source: [`deliverables/demo.html`](deliverables/demo.html).)
+> ▶ **[https://iguigova.github.io/newton3/](https://iguigova.github.io/newton3/)** runs `engine.py` itself in the browser, on Pyodide: add events,
+> slide them back in time, and watch the score and its trace recompute. The same page runs the
+> CLI demo, the data audit, the no-show model and the tests on the repo's own files. Its source
+> is [`index.html`](index.html) and [`demo/`](demo); [`demo/files.txt`](demo/files.txt) names
+> the files it loads, and `tests/test_page.py` keeps that list whole.
 
 ---
 
@@ -106,8 +107,9 @@ docs/
     CLAUDE.md                  AI-pair-programming brief
     generate_synthetic_data.py generator for the example dataset (seeded, reproducible)
     Algorithm User Complaints - *.csv   synthetic metrics, NPS, support tickets, read-me
+index.html, demo/          — ▶ the page: the engine and the commands, running in the browser
 deliverables/              — presentation materials
-  demo.html                — ▶ interactive live demo: the engine running in your browser
+  demo.html                — forwards to the page
   slides.html / walkthrough.html / DEMO.md / ARCHITECTURE.md / INSIGHTS.md
 ```
 
@@ -126,6 +128,7 @@ behaviour score as a pure fold over an event log — is documented in
 [`src/newton/README.md`](src/newton/README.md).
 
 ```bash
+pip install -e . pytest      # the package, and pytest for the tests
 pytest                       # run the tests
 python -m newton.cli demo    # event stream → ranking + a behaviour-score response
 python -m newton.app         # serve the read API on :8000, then:
