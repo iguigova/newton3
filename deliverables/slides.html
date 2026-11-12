@@ -159,16 +159,15 @@
   </section>
 
   <section>
-    <div class="kicker">Business impact · synthetic 1,200-user dataset</div>
+    <div class="kicker">Business impact · synthetic dataset</div>
     <h2>Targets <span class="bad">abuse</span>, protects the <span class="good">underserved</span></h2>
     <table>
-      <tr><th>Underserved tier</th><th class="r">n</th><th class="r">mean (defaults)</th><th class="r">mean (long-memory)</th><th>reading</th></tr>
-      <tr><td>A · high-demand</td><td class="r">352</td><td class="r">99.9</td><td class="r good">96.8</td><td class="sub">protected</td></tr>
-      <tr><td>B · high-demand</td><td class="r">163</td><td class="r">99.8</td><td class="r good">94.3</td><td class="sub">protected</td></tr>
-      <tr><td>M · multi-misser</td><td class="r">75</td><td class="r">99.5</td><td class="r bad">90.0</td><td class="sub">16% Bronze-or-below, min 39</td></tr>
-      <tr><td>X · excess nudges</td><td class="r">27</td><td class="r">99.3</td><td class="r bad">93.1</td><td class="sub">penalised</td></tr>
+      <tr><th>Underserved tier</th><th>under a long-memory policy</th><th>reading</th></tr>
+      <tr><td>A, B, C · high-demand</td><td class="good">stay near base</td><td class="sub">protected</td></tr>
+      <tr><td>M · multi-misser</td><td class="bad">sinks</td><td class="sub">penalised</td></tr>
+      <tr><td>X · excess nudges</td><td class="bad">sinks</td><td class="sub">penalised</td></tr>
     </table>
-    <p class="sub">Same engine, different <code>Config</code>. Defaults are forgiving by design — short windows hide a 3-month history; that is the argument for tenant-configurable windows. <strong>4 / 1,200</strong> users trip the offence override at 2 / 30 days.</p>
+    <p class="sub">Same engine, different <code>Config</code>. Defaults are forgiving by design — short windows hide a 3-month history; that is the argument for tenant-configurable windows. <code>analysis.impact</code>, run on <a href="https://iguigova.github.io/newton3/">the page</a>, prints the figures.</p>
   </section>
 
   <section>
@@ -176,7 +175,7 @@
     <h2>Behaviour is <span class="em">layer 3</span> — exactly where legacy was random</h2>
     <ul>
       <li>The sort is <code>(restricted, group_priority, user_priority, −score)</code>. Behaviour only reorders users <em>inside</em> an equal-priority bracket.</li>
-      <li><strong>1,030 of 1,200</strong> users sit in such a bracket — where the legacy system fell back to a <span class="bad">random</span> tie-break.</li>
+      <li>Most users share such a bracket — where the legacy system fell back to a <span class="bad">random</span> tie-break.</li>
       <li class="good">Randomness → a deterministic, explainable order. A shadow comparator proves whom it reorders before any cut-over.</li>
     </ul>
   </section>
@@ -198,7 +197,7 @@
     <div class="kicker">Technical quality</div>
     <h2>What we built, <span class="em">as strengths</span></h2>
     <div class="cards">
-      <div class="card"><div class="big">63</div><div class="lbl">tests pass · incl. data invariants</div></div>
+      <div class="card"><div class="big">1</div><div class="lbl">function is the whole score · tested as plain input → output</div></div>
       <div class="card"><div class="big">0</div><div class="lbl">mocks · the engine is pure</div></div>
       <div class="card"><div class="big">0</div><div class="lbl">dependencies · stdlib only, curl-able API</div></div>
     </div>
@@ -217,7 +216,7 @@
       <div>
         <p><strong class="good">Compose, don't couple.</strong> ML feeds <em>capacity</em>, not <em>ranking</em>. The score stays a pure, explainable fold; a black box never decides who gets a space.</p>
         <ul style="margin-top:2vh">
-          <li><strong>Predictive no-show → overbooking</strong> — reclaim the seats no-shows waste. Shipped in <code>analysis/predict.py</code> (calibrated, 64% better than a mean baseline).</li>
+          <li><strong>Predictive no-show → overbooking</strong> — reclaim the seats no-shows waste. Shipped in <code>analysis/predict.py</code> (calibrated, and better than a predict-the-mean baseline).</li>
           <li><strong>Anomaly detection</strong> on the event stream — catch ANPR misreads <em>before</em> they become penalties (the false-positive offence-detection risk).</li>
           <li><strong>LLM explanations</strong> built <em>from</em> the impact trace — grounded in the real numbers, so they can't hallucinate the score.</li>
         </ul>
@@ -231,13 +230,13 @@
         </ul>
       </div>
     </div>
-    <p class="sub"><strong>Worked example —</strong> an office has 80 spaces and ~8% of bookings no-show. Admit exactly 80 and ~6 sit empty every day. The model predicts ~92% attendance, so it admits <strong>87</strong> (80&nbsp;÷&nbsp;0.92): ~80 actually park, <span class="good">~7 more people served</span> each cycle — and the behaviour ranking still decides <em>who</em>, with the same explanation. The model only chose the number <em>87</em>, never the people.</p>
+    <p class="sub"><strong>Worked example —</strong> say an office has 80 spaces and 8% of bookings no-show. Admit exactly 80 and ~6 sit empty every day. At a predicted attendance of 92%, it admits <strong>87</strong> (80&nbsp;÷&nbsp;0.92): ~80 actually park, <span class="good">~7 more people served</span> each cycle — and the behaviour ranking still decides <em>who</em>, with the same explanation. The model only chooses the number, never the people.</p>
   </section>
 
   <section>
     <div class="kicker">See it run · four commands</div>
     <h2>Reproducible, end to end</h2>
-    <div class="term"><span class="pr">$</span> python -m pytest -q              <span class="c"># 63 pass — the engine under test</span>
+    <div class="term"><span class="pr">$</span> python -m pytest -q              <span class="c"># the tests — the engine under test</span>
 <span class="pr">$</span> python -m newton.cli demo          <span class="c"># transparent score + explained allocation</span>
 <span class="pr">$</span> python -m newton.app &amp;            <span class="c"># live read API → curl /users/bob/behavior-score</span>
 <span class="pr">$</span> python -m analysis.impact          <span class="c"># data audit → analysis/REPORT.md</span></div>

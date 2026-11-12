@@ -67,7 +67,7 @@ store.
 From the repository root:
 
 ```bash
-pytest                       # 63 tests, no external deps
+pytest                       # the tests, no external deps
 python -m newton.cli demo    # event stream → ranking + a behaviour-score response
 python -m newton.app         # serve the read API on :8000 (stdlib only)
 curl -s localhost:8000/users/bob/behavior-score   # → live score + impact trace

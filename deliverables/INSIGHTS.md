@@ -20,9 +20,8 @@ must settle are in [`docs/README.md`](../docs/README.md#open-questions).
    strongest argument for making windows configurable from day one.
 
 3. **With memory matched to the data, the layer does its job — downward.** Under a
-   long-memory profile the multi-misser tier **M** drops to a mean of ~90 (16%
-   Bronze-or-below, min 38) and excess-nudge tier **X** to ~93, while the high-demand
-   underserved **A, B, C** stay near base. The behaviour layer **penalises genuine abuse
+   long-memory profile the multi-misser tier **M** and the excess-nudge tier **X** sink,
+   while the high-demand underserved **A, B, C** stay near base (`REPORT.md §1`). The behaviour layer **penalises genuine abuse
    and spares the people who were actually underserved** — the *same engine* does both,
    by config alone. Note the asymmetry, by design: with carpool the only default reward,
    it pushes abusers *down* but cannot lift good users *up*. That one-sidedness is a
@@ -30,9 +29,9 @@ must settle are in [`docs/README.md`](../docs/README.md#open-questions).
 
 4. **Behaviour matters where admin priority doesn't — for the users who have a history.**
    It is layer 3, so it only reorders users inside an equal-priority bracket, and in the
-   data **1,030 of 1,200** users sit in the largest such bracket (`REPORT.md §3`). But it only
+   data most users sit in one large bracket (`REPORT.md §3`). But it only
    *separates* users whose events actually moved their score; the bulk of the population
-   sits at or near base 100 (median 98), still tied and still needing a tie-break. Where
+   sits at or near base 100, still tied and still needing a tie-break. Where
    there *is* signal, Newton 3 replaces the legacy *random* tie-break with a
    deterministic, explainable order — a real but **partial** answer to *"allocation feels
    random,"* not a blanket one. Broadening the signal (insight 3) is what widens it.
@@ -75,8 +74,9 @@ must settle are in [`docs/README.md`](../docs/README.md#open-questions).
 
 **AI / stretch (the stretch tier)**
 - **Predictive no-show → overbooking — shipped.** `analysis/predict.py` trains a
-  pure-Python logistic-regression model on the Metabase features (64% lower error than a
-  predict-the-mean baseline, calibrated to the real ~8% no-show rate) and turns predicted
+  pure-Python logistic-regression model on the Metabase features (its error against a
+  predict-the-mean baseline and its calibration are what `python -m analysis.predict`
+  prints) and turns predicted
   attendance into an overbooking factor. It is **composed, not coupled**: it feeds
   *capacity*, not *ranking*, so the behaviour score stays a pure, explainable fold and no
   black box ever decides who gets a space.

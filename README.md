@@ -110,7 +110,7 @@ docs/
 index.html, demo/          — ▶ the page: the engine and the commands, running in the browser
 deliverables/              — presentation materials
   demo.html                — forwards to the page
-  slides.html / walkthrough.html / DEMO.md / ARCHITECTURE.md / INSIGHTS.md
+  slides.html / DEMO.md / ARCHITECTURE.md / INSIGHTS.md
 ```
 
 - **Full picture** — [`docs/README.md`](docs/README.md) is the single source of truth:

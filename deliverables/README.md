@@ -13,7 +13,7 @@ files. (Source: [`index.html`](../index.html) and [`demo/`](../demo).)
 | Material | Where |
 |---|---|
 | **The page** ⭐ | [iguigova.github.io/newton3](https://iguigova.github.io/newton3/) — the engine and the commands, running in your browser; no install. |
-| **Demo (decks)** | [slides.html](https://iguigova.github.io/newton3/deliverables/slides.html) (pitch deck) · [walkthrough.html](https://iguigova.github.io/newton3/deliverables/walkthrough.html) (real command output, narrated) · [`DEMO.md`](DEMO.md) (beats + the commands). |
+| **Demo (deck)** | [slides.html](https://iguigova.github.io/newton3/deliverables/slides.html) (pitch deck) · [`DEMO.md`](DEMO.md) (beats + the commands). |
 | **Documentation** | [`docs/README.md`](../docs/README.md) (source of truth) · [`src/newton/README.md`](../src/newton/README.md) (how the prototype works). |
 | **Architecture / technical overview** | [`ARCHITECTURE.md`](ARCHITECTURE.md). |
 | **Supporting materials** | [`INSIGHTS.md`](INSIGHTS.md) (insights + future improvements) · [`analysis/REPORT.md`](../analysis/REPORT.md) (data audit). |
@@ -27,7 +27,7 @@ explainability, and per-tenant configurability stop being features to build and 
 computed at read time). Every score and allocation outcome carries its own reconciling
 reason (GDPR Art. 22). It ships a **runnable, curl-able read API** (standard library only)
 and an **ML stretch** — a predictive no-show model that sizes overbooking while staying
-*out* of the score, so the ranking stays explainable. On the synthetic 1,200-user dataset the
+*out* of the score, so the ranking stays explainable. On the synthetic dataset the
 *documented defaults barely move any score* — a genuine finding, and the case for
 tenant-configurable windows. Tune the memory to the data and the same engine cleanly
 separates genuine abuse (tiers M, X sink) from the high-demand underserved (A, B, C stay
@@ -39,10 +39,10 @@ near base); a shadow comparator shows exactly whom it reorders before any cut-ov
 |---|---|
 | **Innovation & creativity** | Score-as-a-fold makes persistence, decay, explainability and config properties of one pure function; the weekly decay Lambda disappears. A composed ML stretch (predictive no-show → overbooking) never touches the explainable score. |
 | **Business impact** | [`analysis/REPORT.md`](../analysis/REPORT.md): targets abusers, protects the underserved. |
-| **Technical quality** | Pure, clock-injected engine; 63 tests (incl. data invariants); ruff-clean; idempotent under at-least-once delivery; structured audit logging; config-versioned, reproducible responses. |
+| **Technical quality** | Pure, clock-injected engine; tests with no mocks (incl. data invariants); ruff-clean; idempotent under at-least-once delivery; structured audit logging; config-versioned, reproducible responses. |
 | **Scalability & maintainability** | Decay windows bound the fold; log is compactable; `Config` is the only policy surface; DynamoDB swaps in behind the store Protocol. |
 | **Alignment** | Implements the behaviour-scoring spec faithfully, plus the complaint-analysis proposals #1 (offence override) and #8 (explainable outcomes). |
-| **Demonstration & execution** | [`DEMO.md`](DEMO.md) — runnable commands (tests, live API, data audit, ML), one narrative; two browser decks. |
+| **Demonstration & execution** | [`DEMO.md`](DEMO.md) — runnable commands (tests, live API, data audit, ML), one narrative; the page and a browser deck. |
 
 ## Honesty ledger
 

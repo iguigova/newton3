@@ -38,7 +38,7 @@ complaints well, and worsens one of them. The prototype's own audit establishes 
   named for — keep near-base scores. The headline mechanism does nothing for the people it
   is meant to help ([`deliverables/INSIGHTS.md` §3](../deliverables/INSIGHTS.md)).
 - It only de-randomises **within an equal-priority bracket, and only for users whose
-  events moved their score.** The median user sits at 98, still tied, still random — a
+  events moved their score.** Most users sit at or near base, still tied, still random — a
   partial answer to *"allocation feels random,"* for a minority.
 
 ## Where the design went wrong
@@ -61,8 +61,8 @@ complaints well, and worsens one of them. The prototype's own audit establishes 
 
 4. **The real problem is scarcity, and the score does not touch it.** Reordering who is
    first in a bracket rejects the same number of people. The levers that change outcomes
-   are supply-side — overbooking from no-show prediction (already shipped, 64% better than
-   baseline), fast release of unused bookings, waitlist auto-promotion. These were demoted;
+   are supply-side — overbooking from no-show prediction (already shipped, and better than a
+   predict-the-mean baseline), fast release of unused bookings, waitlist auto-promotion. These were demoted;
    the score that changes nobody's odds was given top billing.
 
 5. **The architecture is premature.** Multi-region DynamoDB Global Tables, an EventBridge
